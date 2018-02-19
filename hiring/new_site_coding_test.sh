@@ -3,7 +3,7 @@
 # A shell script that will create a local WordPress site and get
 # the latest coding test for the applicant
 
-echo "What is the trials's WordPress.com username?"
+echo "What is the applicant's WordPress.com username?"
 read applicant
 
 echo "Creating site to test coding test for $applicant"
