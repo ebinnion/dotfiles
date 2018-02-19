@@ -61,8 +61,66 @@ echo "Users on site:"
 wp user list
 
 echo "Generate some posts"
-curl http://loripsum.net/api/5 | wp --user=ebinnionadmin post generate --post_content --count=10
+post_content=$( curl http://loripsum.net/api/5 )
 
-curl http://loripsum.net/api/5 | wp --user=ebinnionauthor post generate --post_content --count=10
+count=0
+while [ $count -lt 10 ]
+do
+	# Admin posts
+	wp --user=ebinnionadmin post create \
+		--post_content="$post_content" \
+		--post_title="Admin post published $count" \
+		--post_status=publish
+
+	wp --user=ebinnionadmin post create \
+		--post_content="$post_content" \
+		--post_title="Admin post draft $count" \
+		--post_status=draft
+
+	wp --user=ebinnionadmin post create \
+		--post_content="$post_content" \
+		--post_title="Admin post auto-draft $count" \
+		--post_status=auto-draft
+
+	wp --user=ebinnionadmin post create \
+		--post_content="$post_content" \
+		--post_title="Admin post private $count" \
+		--post_status=private \
+		--post_password=password
+
+	wp --user=ebinnionadmin post create \
+		--post_content="$post_content" \
+		--post_title="Admin post private $count" \
+		--post_status=future \
+		--post_date='2118-01-01 00:00:00' # TODO: Let's generate this somehow
+
+	wp --user=ebinnionadmin post create \
+		--post_content="$post_content" \
+		--post_title="Admin post trash $count" \
+		--post_status=trash
+
+	# Author posts
+	wp --user=ebinnionauthor post create \
+		--post_content="$post_content" \
+		--post_title="Author post published $count" \
+		--post_status=publish
+
+	wp --user=ebinnionauthor post create \
+		--post_content="$post_content" \
+		--post_title="Author post draft $count" \
+		--post_status=draft
+
+	wp --user=ebinnionauthor post create \
+		--post_content="$post_content" \
+		--post_title="Author post auto-draft $count" \
+		--post_status=auto-draft
+
+	wp --user=ebinnionauthor post create \
+		--post_content="$post_content" \
+		--post_title="Author post pending $count" \
+		--post_status=pending
+
+	(( count++ ))
+done
 
 exit 0;
