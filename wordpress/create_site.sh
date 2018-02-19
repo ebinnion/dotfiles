@@ -57,9 +57,6 @@ wp user create ebinnionauthor ericbinnion+testauthor@gmail.com \
 	--role=author \
 	--user_pass=password
 
-echo "Users on site:"
-wp user list
-
 echo "Generate some posts"
 post_content=$( curl http://loripsum.net/api/5 )
 
