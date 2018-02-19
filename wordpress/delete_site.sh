@@ -15,10 +15,7 @@ fi
 
 echo "Deleting site with name: $site_name"
 
-cd ~/Websites/ || exit
-cd "$site_name"
-valet forget
-cd ../ || exit
+cd "$HOME/Websites" || exit
 rm -rf "$site_name"
 
 # Delete the matching database table.

@@ -16,11 +16,12 @@ fi
 echo "Creating site with name: $site_name"
 
 cd ~/Websites/ || exit
+
+# Ensure the websites directory is parked
+valet park
+
 mkdir "$site_name"
 cd "$site_name" || exit
-
-echo Launch a new Valet site first.
-valet park
 
 # We will need a database for that WordPress site.
 echo "CREATE DATABASE $site_name" | mysql -uroot -ppass
