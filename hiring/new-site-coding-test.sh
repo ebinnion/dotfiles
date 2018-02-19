@@ -35,6 +35,3 @@ applicant_test_site_dir="$HOME/Websites/$applicant"
 
 # Now copy over the plugin to the test site
 cp -R "$applicant_test_dir" "$applicant_test_site_dir/wp-content/plugins/drafts"
-
-cd $applicant_test_sir || exit;
-valet park
