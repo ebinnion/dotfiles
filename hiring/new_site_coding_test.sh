@@ -38,6 +38,9 @@ cp -R "$applicant_test_dir" "$applicant_test_site_dir/wp-content/plugins/drafts"
 
 cd "$applicant_test_site_dir" || exit;
 
+echo "Activating drafts plugin"
+wp plugin activate drafts
+
 # Create an author user to help testing with permissions
 wp user create ebinnionauthor ericbinnion+testauthor@gmail.com \
 	--role=author \
