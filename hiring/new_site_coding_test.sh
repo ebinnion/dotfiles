@@ -76,7 +76,7 @@ do
 
 	wp --user=ebinnionadmin post create \
 		--post_content="$post_content" \
-		--post_title="Admin post private $count" \
+		--post_title="Admin post future $count" \
 		--post_status=future \
 		--post_date='2118-01-01 00:00:00' # TODO: Let's generate this somehow
 
