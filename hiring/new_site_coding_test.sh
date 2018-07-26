@@ -11,6 +11,10 @@ echo "Creating site to test coding test for $applicant"
 coding_tests_dir="$HOME/Documents/hiring/trials"
 applicant_test_dir="$coding_tests_dir/$applicant"
 
+# Ensure we have the latest from SVN
+cd "$coding_tests_dir" || exit;
+svn up
+
 if [ ! -d "$coding_tests_dir" ]; then
 	echo "Bailing because coding test directory does not exist at $coding_tests_dir"
 	exit 1;
@@ -20,10 +24,6 @@ if [ ! -d "$applicant_test_dir" ]; then
 	echo "Bailing because $applicant directory does not exist!"
 	exit 1;
 fi
-
-# Ensure we have the latest from SVN
-cd "$coding_tests_dir" || exit;
-svn up
 
 # Create test WordPress site
 # TODO: Should probably check status code here
