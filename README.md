@@ -9,22 +9,30 @@ If you're interested in dotfiles in general, see https://dotfiles.github.io/.
 ## What's here
 
 - `zshrc`: shell configuration, aliases, and local workflow shortcuts.
-- `sync.sh`: pulls selected files from `$HOME` into this repo.
 - `claude/settings.json`: Claude Code settings.
-- `claude/skills/`: Claude Code skill definitions I use locally.
+- `skills/`: Claude Code skill definitions, organized by category.
+- `sync.sh`: creates symlinks from `$HOME` to this repo.
 
-## Syncing from my machine
+## Installation
 
-`sync.sh` copies files from their source locations into this repo based on a
-whitelist in the script. It overwrites destinations (and removes existing
-directories) before copying, so use it with care. Each whitelist entry must
-include a destination path.
+This repo is the source of truth. `sync.sh` creates symlinks from your home
+directory pointing to files in this repo.
 
 ```bash
 ./sync.sh
 ```
 
-To add or remove tracked files, edit the `WHITELIST` block in `sync.sh`.
+The script will:
+1. Symlink regular files (e.g., `~/.zshrc` → `dotfiles/zshrc`)
+2. Auto-discover skills by finding `SKILL.md` files and symlink them to
+   `~/.claude/skills/`, flattening nested directories (e.g.,
+   `skills/superpowers/brainstorming/` becomes `~/.claude/skills/brainstorming`)
+3. Prompt before removing stale symlinks in `~/.claude/skills/`
+
+The script never overwrites real files—only existing symlinks are replaced.
+
+To add files, edit the `SYMLINKS` block in `sync.sh`. To add skills, create a
+new directory under `skills/` with a `SKILL.md` file.
 
 ## Notes
 
