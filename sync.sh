@@ -9,8 +9,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 WHITELIST="
 # Source                            Destination
 ~/.zshrc                            zshrc
-~/.claude/settings.json             .claude/settings.json
-~/.claude/skills                    .claude/skills
+~/.claude/settings.json             claude/settings.json
+~/.claude/skills                    claude/skills
 "
 
 echo "Syncing dotfiles..."
