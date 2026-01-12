@@ -21,6 +21,10 @@ while IFS= read -r line; do
 
     # Parse source and destination
     read -r source dest <<< "$line"
+    if [[ -z "$dest" ]]; then
+        echo "  SKIP: invalid whitelist entry (missing destination)"
+        continue
+    fi
 
     # Expand tilde
     source="${source/#\~/$HOME}"

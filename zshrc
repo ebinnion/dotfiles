@@ -13,7 +13,7 @@ export PATH="$PATH:$HOME/.local/bin"
 
 export EDITOR='nano'
 
-export OPENAI_API_KEY=$(security find-generic-password -a "$USER" -s "OPENAI_API_KEY" -w 2>/dev/null)
+# export OPENAI_API_KEY=$(security find-generic-password -a "$USER" -s "OPENAI_API_KEY" -w 2>/dev/null)
 
 # NVM (lazy-loaded for faster shell startup)
 export NVM_DIR="$HOME/.nvm"
@@ -121,14 +121,6 @@ function squash_commit() {
 }
 function comparemaster() {
 	echo $( git difftool master $(git_current_branch) )
-}
-function gpom() {
-	original_branch=$(git_current_branch)
-	echo $( gco master && git pull origin master && gco "$original_branch" )
-}
-function gcopr() {
-	$( git fetch origin pull/"$1"/head:pr-"$1" )
-	$( git checkout pr-"$1" )
 }
 
 alias softreset='git reset --soft HEAD^'
