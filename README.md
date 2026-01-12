@@ -1,14 +1,33 @@
-# ebinnion dotfiles :)
+# ebinnion dotfiles
 
-Over the past few years, I've built up a list of aliases, scripts, and config files that are a bit scattered. This repository is an effort to bring some organization to my development environment.
+Personal dotfiles and tooling snapshots that keep my local setup consistent.
+This repo is tailored to my macOS environment and paths, so expect to tweak
+things if you reuse it.
 
-This repository is intended for use by me, so you may not find it too helpful. :)
+If you're interested in dotfiles in general, see https://dotfiles.github.io/.
 
-If you're interested in dotfiles, have a look at [https://dotfiles.github.io/](https://dotfiles.github.io/).
+## What's here
 
-Currently, this repository only contains scripts for creating and tearing down WordPress sites using Laravel Valet. These scripts assume:
+- `zshrc`: shell configuration, aliases, and local workflow shortcuts.
+- `sync.sh`: pulls selected files from `$HOME` into this repo.
+- `claude/settings.json`: Claude Code settings.
+- `claude/skills/`: Claude Code skill definitions I use locally.
 
-- PHP is installed `brew install homebrew/php/php72`
-- MySQL is installed and active `brew install mysql`.
-    - The script also currently assumes that the MySQL username is `root` and the password is `pass`.
-- Laravel Valet has been installed. See instructions here: [https://laravel.com/docs/5.6/valet#installation](https://laravel.com/docs/5.6/valet#installation)
+## Syncing from my machine
+
+`sync.sh` copies files from their source locations into this repo based on a
+whitelist in the script. It overwrites destinations (and removes existing
+directories) before copying, so use it with care. Each whitelist entry must
+include a destination path.
+
+```bash
+./sync.sh
+```
+
+To add or remove tracked files, edit the `WHITELIST` block in `sync.sh`.
+
+## Notes
+
+- Paths in `zshrc` are machine-specific and include local repos.
+- Some tools assume Homebrew-managed installs (e.g., `nvm`, `rbenv`,
+  `zsh-autosuggestions`, `starship`).
