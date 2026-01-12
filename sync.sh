@@ -17,9 +17,16 @@ claude/settings.json            ~/.claude/settings.json
 SKILLS_SOURCE="skills"
 SKILLS_DEST="$HOME/.claude/skills"
 
+# Agents configuration
+AGENTS_SOURCE="agents"
+AGENTS_DEST="$HOME/.claude/agents"
+
 # Track created skills for stale cleanup
 created_skill_names=()
 created_skill_dirs=()
+
+# Track created agents for stale cleanup
+created_agent_names=()
 
 find_created_skill_index() {
 	local name="$1"
@@ -28,6 +35,19 @@ find_created_skill_index() {
 	for i in "${!created_skill_names[@]}"; do
 		if [[ "${created_skill_names[$i]}" == "$name" ]]; then
 			echo "$i"
+			return 0
+		fi
+	done
+
+	return 1
+}
+
+is_created_agent() {
+	local name="$1"
+	local agent
+
+	for agent in "${created_agent_names[@]}"; do
+		if [[ "$agent" == "$name" ]]; then
 			return 0
 		fi
 	done
@@ -83,7 +103,45 @@ done <<< "$SYMLINKS"
 
 echo ""
 
-# Phase 2: Skills symlinks
+# Phase 2: Agents symlinks
+echo "Agents:"
+
+# Find all .md files in agents directory and create symlinks
+if [[ -d "$SCRIPT_DIR/$AGENTS_SOURCE" ]]; then
+	mkdir -p "$AGENTS_DEST"
+
+	for agent_file in "$SCRIPT_DIR/$AGENTS_SOURCE"/*.md; do
+		[[ -e "$agent_file" ]] || continue
+
+		agent_name="$(basename "$agent_file")"
+		created_agent_names+=("$agent_name")
+
+		dest_path="$AGENTS_DEST/$agent_name"
+
+		# Remove existing symlink at destination (never delete real files/dirs)
+		if [[ -L "$dest_path" ]]; then
+			existing_target="$(readlink "$dest_path")"
+			if [[ "$existing_target" == "$agent_file" ]]; then
+				echo "  OK: $agent_name (already linked)"
+				continue
+			fi
+			rm -f "$dest_path"
+		elif [[ -e "$dest_path" ]]; then
+			echo "  SKIP: $agent_name (destination exists and is not a symlink)"
+			continue
+		fi
+
+		# Create symlink
+		ln -s "$agent_file" "$dest_path"
+		echo "  OK: $agent_name -> $dest_path"
+	done
+else
+	echo "  No agents directory found."
+fi
+
+echo ""
+
+# Phase 3: Skills symlinks
 echo "Skills:"
 
 # Find all SKILL.md files and create symlinks
@@ -132,10 +190,37 @@ done < <(find "$SCRIPT_DIR/$SKILLS_SOURCE" -name "SKILL.md" 2>/dev/null | sed "s
 
 echo ""
 
-# Phase 3: Stale symlink cleanup
+# Phase 4: Stale symlink cleanup
 echo "Checking for stale symlinks..."
 stale_found=false
 
+# Check agents for stale symlinks
+if [[ -d "$AGENTS_DEST" ]]; then
+	for link in "$AGENTS_DEST"/*; do
+		[[ -e "$link" || -L "$link" ]] || continue
+
+		link_name="$(basename "$link")"
+
+		# Skip if this was just created
+		if is_created_agent "$link_name"; then
+			continue
+		fi
+
+		# Only handle symlinks (don't touch regular files/dirs)
+		if [[ -L "$link" ]]; then
+			stale_found=true
+			read -p "  Remove stale agent symlink $link? [y/N] " answer
+			if [[ "$answer" =~ ^[Yy]$ ]]; then
+				rm "$link"
+				echo "  REMOVED: $link_name"
+			else
+				echo "  KEPT: $link_name"
+			fi
+		fi
+	done
+fi
+
+# Check skills for stale symlinks
 if [[ -d "$SKILLS_DEST" ]]; then
 	for link in "$SKILLS_DEST"/*; do
 		[[ -e "$link" || -L "$link" ]] || continue
@@ -150,7 +235,7 @@ if [[ -d "$SKILLS_DEST" ]]; then
 		# Only handle symlinks (don't touch regular files/dirs)
 		if [[ -L "$link" ]]; then
 			stale_found=true
-			read -p "  Remove stale symlink $link? [y/N] " answer
+			read -p "  Remove stale skill symlink $link? [y/N] " answer
 			if [[ "$answer" =~ ^[Yy]$ ]]; then
 				rm "$link"
 				echo "  REMOVED: $link_name"
