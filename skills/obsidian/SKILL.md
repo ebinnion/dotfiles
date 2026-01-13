@@ -51,4 +51,6 @@ Notes:
 - **Avoid dot-folders**: Don't create notes under hidden folders (`.something/...`) via URI; Obsidian may refuse
 - **Direct edits work**: Open the `.md` file directly and edit; Obsidian picks up changes
 - **Use print for reading**: `obsidian-cli print "note"` outputs note contents to stdout
+- **Safe multi-line content**: Avoid passing Markdown in double quotes when it includes backticks or `$()`; use a single-quoted heredoc or write directly to the vault path instead
+- **Verify after create**: Run `obsidian-cli print "note"` and confirm the last section is present
 - **Vault flag**: Most commands accept `-v <vault-name>` to specify a non-default vault
