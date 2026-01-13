@@ -16,7 +16,10 @@ CLAUDE.md                ~/CLAUDE.md
 
 # Skills configuration
 SKILLS_SOURCE="skills"
-SKILLS_DEST="$HOME/.claude/skills"
+SKILLS_DESTS=(
+	"$HOME/.claude/skills"
+	"$HOME/.codex/skills"
+)
 
 # Agents configuration
 AGENTS_SOURCE="agents"
@@ -143,51 +146,49 @@ fi
 echo ""
 
 # Phase 3: Skills symlinks
-echo "Skills:"
-
-# Find all SKILL.md files and create symlinks
+# First pass: discover all skills and check for conflicts
 while IFS= read -r skill_file; do
-	# Get the parent directory (skill directory)
 	skill_dir="$(dirname "$skill_file")"
-
-	# Get just the skill name (immediate parent of SKILL.md)
 	skill_name="$(basename "$skill_dir")"
 
-	# Check for naming conflicts
 	if existing_index="$(find_created_skill_index "$skill_name")"; then
 		echo "  CONFLICT: $skill_name already exists from ${created_skill_dirs[$existing_index]}"
 		echo "            skipping $skill_dir"
 		continue
 	fi
 
-	# Track this skill
 	created_skill_names+=("$skill_name")
 	created_skill_dirs+=("$skill_dir")
+done < <(find "$SCRIPT_DIR/$SKILLS_SOURCE" -name "SKILL.md" 2>/dev/null | sed "s|$SCRIPT_DIR/||" | sort)
 
-	# Create skills destination directory if needed
-	mkdir -p "$SKILLS_DEST"
+# Second pass: create symlinks in each destination
+for skills_dest in "${SKILLS_DESTS[@]}"; do
+	echo "Skills ($skills_dest):"
+	mkdir -p "$skills_dest"
 
-	# Full paths
-	source_path="$SCRIPT_DIR/$skill_dir"
-	dest_path="$SKILLS_DEST/$skill_name"
+	for i in "${!created_skill_names[@]}"; do
+		skill_name="${created_skill_names[$i]}"
+		skill_dir="${created_skill_dirs[$i]}"
+		source_path="$SCRIPT_DIR/$skill_dir"
+		dest_path="$skills_dest/$skill_name"
 
-	# Remove existing symlink at destination (never delete real files/dirs)
-	if [[ -L "$dest_path" ]]; then
-		existing_target="$(readlink "$dest_path")"
-		if [[ "$existing_target" == "$source_path" ]]; then
-			echo "  OK: $skill_name -> $dest_path (already linked)"
+		if [[ -L "$dest_path" ]]; then
+			existing_target="$(readlink "$dest_path")"
+			if [[ "$existing_target" == "$source_path" ]]; then
+				echo "  OK: $skill_name (already linked)"
+				continue
+			fi
+			rm -f "$dest_path"
+		elif [[ -e "$dest_path" ]]; then
+			echo "  SKIP: $skill_name (destination exists and is not a symlink)"
 			continue
 		fi
-		rm -f "$dest_path"
-	elif [[ -e "$dest_path" ]]; then
-		echo "  SKIP: $skill_name -> $dest_path (destination exists and is not a symlink)"
-		continue
-	fi
 
-	# Create symlink
-	ln -s "$source_path" "$dest_path"
-	echo "  OK: $skill_name -> $dest_path"
-done < <(find "$SCRIPT_DIR/$SKILLS_SOURCE" -name "SKILL.md" 2>/dev/null | sed "s|$SCRIPT_DIR/||" | sort)
+		ln -s "$source_path" "$dest_path"
+		echo "  OK: $skill_name"
+	done
+	echo ""
+done
 
 echo ""
 
@@ -221,31 +222,33 @@ if [[ -d "$AGENTS_DEST" ]]; then
 	done
 fi
 
-# Check skills for stale symlinks
-if [[ -d "$SKILLS_DEST" ]]; then
-	for link in "$SKILLS_DEST"/*; do
-		[[ -e "$link" || -L "$link" ]] || continue
+# Check skills for stale symlinks in all destinations
+for skills_dest in "${SKILLS_DESTS[@]}"; do
+	if [[ -d "$skills_dest" ]]; then
+		for link in "$skills_dest"/*; do
+			[[ -e "$link" || -L "$link" ]] || continue
 
-		link_name="$(basename "$link")"
+			link_name="$(basename "$link")"
 
-		# Skip if this was just created
-		if find_created_skill_index "$link_name" >/dev/null; then
-			continue
-		fi
-
-		# Only handle symlinks (don't touch regular files/dirs)
-		if [[ -L "$link" ]]; then
-			stale_found=true
-			read -p "  Remove stale skill symlink $link? [y/N] " answer
-			if [[ "$answer" =~ ^[Yy]$ ]]; then
-				rm "$link"
-				echo "  REMOVED: $link_name"
-			else
-				echo "  KEPT: $link_name"
+			# Skip if this was just created
+			if find_created_skill_index "$link_name" >/dev/null; then
+				continue
 			fi
-		fi
-	done
-fi
+
+			# Only handle symlinks (don't touch regular files/dirs)
+			if [[ -L "$link" ]]; then
+				stale_found=true
+				read -p "  Remove stale skill symlink $link? [y/N] " answer
+				if [[ "$answer" =~ ^[Yy]$ ]]; then
+					rm "$link"
+					echo "  REMOVED: $link_name"
+				else
+					echo "  KEPT: $link_name"
+				fi
+			fi
+		done
+	fi
+done
 
 if [[ "$stale_found" == false ]]; then
 	echo "  No stale symlinks found."
