@@ -1,0 +1,1 @@
+- If a request mentions Automattic internal systems (Linear, Slack, P2s, Zendesk, TeamCity, Matticspace, A4A, or internal docs) or links to internal URLs (e.g., `a8c`, `woothemes`, `*.wordpress.com`), load the `context-a8c-mcporter` skill first to access `mcporter` context tools.

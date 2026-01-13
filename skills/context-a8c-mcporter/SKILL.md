@@ -37,10 +37,16 @@ This returns the available tools for that provider and their parameters.
 ### Step 2: Execute Tool
 
 ```bash
-mcporter call context-a8c.context-a8c-execute-tool provider=<provider> tool=<tool> params='<json>'
+mcporter call 'context-a8c.context-a8c-execute-tool(provider: "linear", tool: "issue", params: {"id":"SQUARE-215"})'
 ```
 
-The `params` argument is optional JSON matching the tool's schema.
+Params are optional; omit `params` entirely for tools without arguments:
+
+```bash
+mcporter call 'context-a8c.context-a8c-execute-tool(provider: "linear", tool: "me")'
+```
+
+The `params` argument must be an object (not a JSON string). Wrap the whole call in single quotes to avoid shell parsing issues.
 
 ## Workflow
 
@@ -48,6 +54,20 @@ The `params` argument is optional JSON matching the tool's schema.
 2. Load the relevant provider to discover its tools
 3. Execute the specific tool with appropriate params
 4. Parse JSON results
+
+## End-to-End Example (Linear Issue)
+
+```bash
+mcporter list context-a8c
+mcporter call context-a8c.context-a8c-load-provider provider=linear
+mcporter call 'context-a8c.context-a8c-execute-tool(provider: "linear", tool: "issue", params: {"id":"SQUARE-215"})'
+```
+
+## Common Errors
+
+- `tool is a required property of input` → include `tool: "<tool>"` in the execute call.
+- `provider is a required property of input` → include `provider: "<provider>"` in the execute call.
+- `input[params] is not of type object` → pass an object, not a quoted JSON string.
 
 ## Notes
 
