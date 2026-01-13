@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(brainstorming)",
+      "Skill(obsidian)",
+      "Bash(obsidian-cli search-content:*)",
+      "Bash(obsidian-cli print:*)"
+    ]
+  }
+}

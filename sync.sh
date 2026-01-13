@@ -11,6 +11,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SYMLINKS="
 zshrc                           ~/.zshrc
 claude/settings.json            ~/.claude/settings.json
+CLAUDE.md                ~/CLAUDE.md
 "
 
 # Skills configuration
