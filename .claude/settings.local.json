@@ -4,7 +4,10 @@
       "Skill(brainstorming)",
       "Skill(obsidian)",
       "Bash(obsidian-cli search-content:*)",
-      "Bash(obsidian-cli print:*)"
+      "Bash(obsidian-cli print:*)",
+      "Skill(writing-skills)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }
