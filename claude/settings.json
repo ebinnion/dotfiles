@@ -15,6 +15,11 @@
   },
   "permissions": {
     "allow": [
+      "Read(~/Repos/**)",
+      "Read(~/Obsidian/**)",
+      "Glob(~/Repos/**)",
+      "Glob(~/Obsidian/**)",
+
       "Bash(ls:*)",
       "Bash(pwd:*)",
       "Bash(which:*)",
@@ -45,7 +50,8 @@
       "Bash(npx prettier:*)",
       "Bash(vendor/bin/phpcs:*)",
 
-      "Bash(find:*)",
+      "Bash(find ~/Repos:*)",
+      "Bash(find ~/Obsidian:*)",
 
       "Bash(obsidian-cli:*)",
       "Bash(quill export:*)",
