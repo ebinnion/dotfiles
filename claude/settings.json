@@ -12,5 +12,64 @@
   "alwaysThinkingEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754085306742
+  },
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(pwd:*)",
+      "Bash(which:*)",
+
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh search:*)",
+
+      "Bash(pnpm run:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm env:*)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npx wp-env run cli:*)",
+      "Bash(npx prettier:*)",
+      "Bash(vendor/bin/phpcs:*)",
+
+      "Bash(find:*)",
+
+      "Bash(obsidian-cli:*)",
+      "Bash(quill export:*)",
+      "Bash(docker ps:*)",
+      "Bash(mcporter list:*)",
+      "Bash(mcporter call:*)",
+      "Bash(claude mcp list:*)",
+      "Bash(claude mcp tools:*)",
+
+      "Skill(brainstorming)",
+      "Skill(obsidian)",
+      "Skill(writing-skills)",
+      "Skill(quill-cli)",
+
+      "mcp__plugin_context-a8c_context-a8c__context-a8c-load-provider",
+      "mcp__plugin_context-a8c_context-a8c__context-a8c-execute-tool",
+      "mcp__linear-server__get_issue",
+      "mcp__linear-server__list_issues",
+      "mcp__linear-server__list_comments",
+      "mcp__linear-server__list_my_issues",
+      "mcp__linear-server__get_project",
+      "mcp__linear-server__list_teams"
+    ],
+    "deny": [],
+    "ask": []
   }
 }
