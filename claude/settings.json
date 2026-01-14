@@ -13,6 +13,10 @@
   "feedbackSurveyState": {
     "lastShownTime": 1754085306742
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/Repos/dotfiles/claude/statusline.sh"
+  },
   "permissions": {
     "allow": [
       "Read(~/Repos/**)",
