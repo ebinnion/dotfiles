@@ -45,6 +45,7 @@
       "Bash(gh run list:*)",
       "Bash(gh search:*)",
 
+      "Bash(pnpm --filter:*lint*)",
       "Bash(pnpm run:*)",
       "Bash(pnpm test:*)",
       "Bash(pnpm lint:*)",
