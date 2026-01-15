@@ -53,6 +53,7 @@
       "Bash(npx wp-env run cli:*)",
       "Bash(npx prettier:*)",
       "Bash(vendor/bin/phpcs:*)",
+      "Bash(php -l:*)",
 
       "Bash(find ~/Repos:*)",
       "Bash(find ~/Obsidian:*)",
