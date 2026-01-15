@@ -59,6 +59,8 @@
 
       "Bash(find ~/Repos:*)",
       "Bash(find ~/Obsidian:*)",
+      "Bash(grep:~/Repos/*)",
+      "Bash(grep:~/Obsidian/*)",
 
       "Bash(obsidian-cli:*)",
       "Bash(quill export:*)",
