@@ -57,6 +57,7 @@
       "Bash(npx prettier:*)",
       "Bash(vendor/bin/phpcs:*)",
       "Bash(php -l:*)",
+      "Bash(composer phpstan:baseline:*)",
 
       "Bash(find ~/Repos:*)",
       "Bash(find ~/Obsidian:*)",
