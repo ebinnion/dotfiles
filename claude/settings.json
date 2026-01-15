@@ -51,6 +51,7 @@
       "Bash(pnpm test:*)",
       "Bash(pnpm lint:*)",
       "Bash(pnpm lint:php:*)",
+      "Bash(pnpm lint:php:changes:branch:*)",
       "Bash(pnpm wp-env start:*)",
       "Bash(pnpm env:*)",
       "Bash(npm run:*)",
