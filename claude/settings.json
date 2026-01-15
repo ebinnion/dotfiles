@@ -47,6 +47,7 @@
       "Bash(pnpm run:*)",
       "Bash(pnpm test:*)",
       "Bash(pnpm lint:*)",
+      "Bash(pnpm wp-env start:*)",
       "Bash(pnpm env:*)",
       "Bash(npm run:*)",
       "Bash(npm test:*)",
