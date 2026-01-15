@@ -77,7 +77,8 @@
       "mcp__linear-server__list_comments",
       "mcp__linear-server__list_my_issues",
       "mcp__linear-server__get_project",
-      "mcp__linear-server__list_teams"
+      "mcp__linear-server__list_teams",
+      "mcp__linear-server__list_documents"
     ],
     "deny": [],
     "ask": []
