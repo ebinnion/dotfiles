@@ -35,6 +35,7 @@
       "Bash(git branch:*)",
       "Bash(git add:*)",
       "Bash(git checkout:*)",
+	  "Bash(git fetch:*)",
 
       "Bash(gh pr view:*)",
       "Bash(gh pr list:*)",
