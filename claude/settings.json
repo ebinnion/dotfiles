@@ -68,6 +68,9 @@
       "Bash(grep:~/Repos/*)",
       "Bash(grep:~/Obsidian/*)",
 
+      "Bash(echo * | pbcopy:*)",
+      "Bash(printf * | pbcopy:*)",
+
       "Bash(obsidian-cli:*)",
       "Bash(quill export:*)",
       "Bash(docker ps:*)",
