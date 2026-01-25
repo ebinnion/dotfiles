@@ -1,22 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "includeCoAuthoredBy": false,
-  "enabledPlugins": {
-    "superpowers@superpowers-marketplace": false,
-    "context-a8c@automattic-claude-code-plugins": false,
-    "claude-code-meta@emdashcodes-claude-code-plugins": true,
-    "linear-tools@local-plugins": false,
-    "triage@automattic-claude-code-plugins": true,
-    "github-enterprise@automattic-claude-code-plugins": true
-  },
-  "alwaysThinkingEnabled": true,
-  "feedbackSurveyState": {
-    "lastShownTime": 1754085306742
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "bash ~/Repos/dotfiles/claude/statusline.sh"
-  },
   "permissions": {
     "allow": [
       "Read(~/Repos/**)",
@@ -24,11 +8,9 @@
       "Read(~/.claude/context-a8c.json)",
       "Glob(~/Repos/**)",
       "Glob(~/Obsidian/**)",
-
       "Bash(ls:*)",
       "Bash(pwd:*)",
       "Bash(which:*)",
-
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
@@ -36,8 +18,7 @@
       "Bash(git branch:*)",
       "Bash(git add:*)",
       "Bash(git checkout:*)",
-	  "Bash(git fetch:*)",
-
+      "Bash(git fetch:*)",
       "Bash(gh pr view:*)",
       "Bash(gh pr list:*)",
       "Bash(gh pr diff:*)",
@@ -47,7 +28,6 @@
       "Bash(gh run view:*)",
       "Bash(gh run list:*)",
       "Bash(gh search:*)",
-
       "Bash(pnpm --filter *)",
       "Bash(pnpm run:*)",
       "Bash(pnpm test:*)",
@@ -63,15 +43,12 @@
       "Bash(vendor/bin/phpcs:*)",
       "Bash(php -l:*)",
       "Bash(composer phpstan:baseline:*)",
-
       "Bash(find ~/Repos:*)",
       "Bash(find ~/Obsidian:*)",
       "Bash(grep:~/Repos/*)",
       "Bash(grep:~/Obsidian/*)",
-
       "Bash(echo * | pbcopy:*)",
       "Bash(printf * | pbcopy:*)",
-
       "Bash(obsidian-cli:*)",
       "Bash(quill export:*)",
       "Bash(docker ps:*)",
@@ -79,12 +56,10 @@
       "Bash(mcporter call:*)",
       "Bash(claude mcp list:*)",
       "Bash(claude mcp tools:*)",
-
       "Skill(brainstorming)",
       "Skill(obsidian)",
       "Skill(writing-skills)",
       "Skill(quill-cli)",
-
       "mcp__plugin_context-a8c_context-a8c__context-a8c-load-provider",
       "mcp__plugin_context-a8c_context-a8c__context-a8c-execute-tool",
       "mcp__linear-server__get_issue",
@@ -97,5 +72,21 @@
     ],
     "deny": [],
     "ask": []
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/Repos/dotfiles/claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": false,
+    "context-a8c@automattic-claude-code-plugins": true,
+    "claude-code-meta@emdashcodes-claude-code-plugins": true,
+    "linear-tools@local-plugins": false,
+    "triage@automattic-claude-code-plugins": true,
+    "github-enterprise@automattic-claude-code-plugins": true
+  },
+  "alwaysThinkingEnabled": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754085306742
   }
 }
