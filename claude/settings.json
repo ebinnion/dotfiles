@@ -21,6 +21,7 @@
     "allow": [
       "Read(~/Repos/**)",
       "Read(~/Obsidian/**)",
+      "Read(~/.claude/context-a8c.json)",
       "Glob(~/Repos/**)",
       "Glob(~/Obsidian/**)",
 
