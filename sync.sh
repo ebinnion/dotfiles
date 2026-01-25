@@ -14,10 +14,11 @@ claude/settings.json            ~/.claude/settings.json
 "
 
 # Skills configuration
+# Format: "name:path" - name is used in .targets files
 SKILLS_SOURCE="skills"
 SKILLS_DESTS=(
-	"$HOME/.claude/skills"
-	"$HOME/.codex/skills"
+	"claude:$HOME/.claude/skills"
+	"codex:$HOME/.codex/skills"
 )
 
 # Agents configuration
@@ -27,6 +28,7 @@ AGENTS_DEST="$HOME/.claude/agents"
 # Track created skills for stale cleanup
 created_skill_names=()
 created_skill_dirs=()
+created_skill_targets=()  # comma-separated targets or "all"
 
 # Track created agents for stale cleanup
 created_agent_names=()
@@ -156,20 +158,47 @@ while IFS= read -r skill_file; do
 		continue
 	fi
 
+	# Check for .targets file to determine which destinations to use
+	targets_file="$SCRIPT_DIR/$skill_dir/.targets"
+	if [[ -f "$targets_file" ]]; then
+		# Read targets, join with comma, trim whitespace
+		targets="$(tr '\n' ',' < "$targets_file" | sed 's/,$//' | tr -d ' ')"
+	else
+		targets="all"
+	fi
+
 	created_skill_names+=("$skill_name")
 	created_skill_dirs+=("$skill_dir")
+	created_skill_targets+=("$targets")
 done < <(find "$SCRIPT_DIR/$SKILLS_SOURCE" -name "SKILL.md" 2>/dev/null | sed "s|$SCRIPT_DIR/||" | sort)
 
 # Second pass: create symlinks in each destination
-for skills_dest in "${SKILLS_DESTS[@]}"; do
-	echo "Skills ($skills_dest):"
+for skills_dest_entry in "${SKILLS_DESTS[@]}"; do
+	# Parse "name:path" format
+	dest_name="${skills_dest_entry%%:*}"
+	skills_dest="${skills_dest_entry#*:}"
+
+	echo "Skills ($dest_name -> $skills_dest):"
 	mkdir -p "$skills_dest"
 
 	for i in "${!created_skill_names[@]}"; do
 		skill_name="${created_skill_names[$i]}"
 		skill_dir="${created_skill_dirs[$i]}"
+		skill_targets="${created_skill_targets[$i]}"
 		source_path="$SCRIPT_DIR/$skill_dir"
 		dest_path="$skills_dest/$skill_name"
+
+		# Check if this skill should be linked to this destination
+		if [[ "$skill_targets" != "all" ]]; then
+			if [[ ! ",$skill_targets," =~ ,"$dest_name", ]]; then
+				# Remove stale symlink if skill was previously linked here
+				if [[ -L "$dest_path" ]]; then
+					rm -f "$dest_path"
+					echo "  REMOVED: $skill_name (no longer targets $dest_name)"
+				fi
+				continue
+			fi
+		fi
 
 		if [[ -L "$dest_path" ]]; then
 			existing_target="$(readlink "$dest_path")"
@@ -222,7 +251,8 @@ if [[ -d "$AGENTS_DEST" ]]; then
 fi
 
 # Check skills for stale symlinks in all destinations
-for skills_dest in "${SKILLS_DESTS[@]}"; do
+for skills_dest_entry in "${SKILLS_DESTS[@]}"; do
+	skills_dest="${skills_dest_entry#*:}"
 	if [[ -d "$skills_dest" ]]; then
 		for link in "$skills_dest"/*; do
 			[[ -e "$link" || -L "$link" ]] || continue
