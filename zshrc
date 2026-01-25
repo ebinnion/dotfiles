@@ -85,12 +85,6 @@ alias wpenvcli='wp-env run cli'
 alias copydir='pwd | pbcopy'
 
 ###################
-#### Clawdbot ####
-###################
-
-alias clawdbotdo='cd ~/Repos/clawdbot && git pull origin main && pnpm install && pnpm run build && pnpm run ui:install'
-
-###################
 ####### Git #######
 ###################
 
