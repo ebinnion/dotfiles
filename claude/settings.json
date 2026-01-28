@@ -62,6 +62,8 @@
       "Skill(quill-cli)",
       "mcp__plugin_context-a8c_context-a8c__context-a8c-load-provider",
       "mcp__plugin_context-a8c_context-a8c__context-a8c-execute-tool",
+      "mcp__context-a8c__context-a8c-load-provider",
+      "mcp__context-a8c__context-a8c-execute-tool",
       "mcp__linear-server__get_issue",
       "mcp__linear-server__list_issues",
       "mcp__linear-server__list_comments",
