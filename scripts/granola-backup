@@ -1,0 +1,7 @@
+#!/bin/zsh
+set -euo pipefail
+
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+
+node /Users/ericbinnion/Repos/granola-cli/dist/backup.js \
+  --folder "02 Journals/Meeting Notes"
