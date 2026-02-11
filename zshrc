@@ -10,6 +10,7 @@ export PATH=/opt/bin:$PATH
 export PATH=/Users/ericbinnion/jurassictube/jurassictube.sh:$PATH
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/Repos/site-gardener"
 
 export EDITOR='nano'
 
@@ -61,7 +62,7 @@ alias jtwooup='jurassictube -u ebinnion -s binnionwoodev -h localhost:80'
 alias jtwoodown='jurassictube -b -s binnionwoodev'
 
 # WP.com
-alias devitup='ssh sandbox'
+alias devitup='ssh wpcom-sandbox'
 alias unisondown='unison -ui text automattic-sandbox -force ssh://wpdev@ebinnion.dev.dfw.wordpress.com//home -batch'
 alias unisync='unison -ui text -repeat 1 automattic-sandbox'
 
