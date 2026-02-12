@@ -10,6 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 # Regular file symlinks: SOURCE (in repo) -> DESTINATION (in home)
 SYMLINKS="
 zshrc                           ~/.zshrc
+tmux.conf                       ~/.tmux.conf
 claude/settings.json            ~/.claude/settings.json
 "
 
