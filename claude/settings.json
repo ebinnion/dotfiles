@@ -88,7 +88,8 @@
     "claude-code-meta@emdashcodes-claude-code-plugins": true,
     "linear-tools@local-plugins": false,
     "triage@automattic-claude-code-plugins": true,
-    "github-enterprise@automattic-claude-code-plugins": true
+    "github-enterprise@automattic-claude-code-plugins": true,
+    "code-simplifier@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
   "feedbackSurveyState": {
