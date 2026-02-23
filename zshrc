@@ -56,10 +56,17 @@ alias wootunnel="cloudflared tunnel run woo-dev"
 alias woodevstart="woolocal && wootunnel"
 alias woodevstop="cd /Users/ericbinnion/Sites/woo-dev && npx @wordpress/env stop"
 alias woodevlogs="cd /Users/ericbinnion/Sites/woo-dev && npx @wordpress/env logs"
+alias woolocal2="cd /Users/ericbinnion/Sites/woo-dev2 && npx @wordpress/env start"
+alias wootunnel2="cloudflared tunnel run woo-dev2"
+alias woodev2start="woolocal2 && wootunnel2"
+alias woodev2stop="cd /Users/ericbinnion/Sites/woo-dev2 && npx @wordpress/env stop"
+alias woodev2logs="cd /Users/ericbinnion/Sites/woo-dev2 && npx @wordpress/env logs"
 alias woorelease='php ~/.woorelease/woorelease.phar'
 
 alias jtwooup='jurassictube -u ebinnion -s binnionwoodev -h localhost:80'
 alias jtwoodown='jurassictube -b -s binnionwoodev'
+alias jtwooup2='jurassictube -u ebinnion -s binnionwoodev2 -h localhost:80'
+alias jtwoodown2='jurassictube -b -s binnionwoodev2'
 
 # WP.com
 alias devitup='ssh wpcom-sandbox'

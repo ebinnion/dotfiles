@@ -45,9 +45,9 @@ Create a detailed summary note in `08 AI Docs`:
 ```bash
 # Generate a descriptive filename based on the session topic
 # Format: YYYY-MM-DD-topic-slug.md
-NOTE_NAME="08 AI Docs/$(date +%Y-%m-%d)-session-topic"
+NOTE_PATH="08 AI Docs/$(date +%Y-%m-%d)-session-topic.md"
 
-obsidian-cli create "$NOTE_NAME" --content "..."
+obsidian create path="$NOTE_PATH" content="..."
 ```
 
 ### Full Summary Template
@@ -126,7 +126,7 @@ Add a brief summary to the daily note with a link to the full summary:
 
 ```bash
 # Open/create today's daily note and append
-obsidian-cli daily
+obsidian daily
 ```
 
 ### Daily Note Entry Template
@@ -176,5 +176,5 @@ Key outcomes:
 ## Integration
 
 Works well with:
-- **obsidian** - Uses obsidian-cli for note creation
+- **obsidian** - Uses official `obsidian` CLI for note creation
 - **verification-before-completion** - Summarize after verifying work is complete

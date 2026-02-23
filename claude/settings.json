@@ -52,7 +52,7 @@
       "Bash(grep:~/Obsidian/*)",
       "Bash(echo * | pbcopy:*)",
       "Bash(printf * | pbcopy:*)",
-      "Bash(obsidian-cli:*)",
+      "Bash(obsidian:*)",
       "Bash(quill export:*)",
       "Bash(docker ps:*)",
       "Bash(mcporter list:*)",
